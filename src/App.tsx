@@ -1,9 +1,332 @@
+import { useRef, useState } from "react";
 import Logo from "./Logo";
+import ColourStage from "./ColourStage";
+import Hero from "./Hero";
+import Process from "./Process";
+import PelletJar from "./PelletJar";
+import { PA6_SLIDES, SIZES, TUB_SLIDES } from "./data";
+import { clamp, prefersReducedMotion, smooth, useCountUp, useRevealOnScroll, useViewportProgress } from "./hooks";
 
-const COLORS = ["#e8b923", "#c0271f", "#1a5fc0", "#e8701a", "#8a939b", "#3fb58f"];
-const SIZES = ['14"', '16"', '18"', '20"', '22"', '24"'];
+const PHONE_1 = { name: "Ankit Desai", tel: "+917043836001", show: "+91 70438 36001" };
+const PHONE_2 = { name: "Harsh Patel", tel: "+919586550300", show: "+91 95865 50300" };
+const EMAIL = "superplastech6001@gmail.com";
 
-function Icon({ name }: { name: "phone" | "mail" | "pin" | "doc" }) {
+/* ───────────────────────── Nav ───────────────────────── */
+
+const LINKS = [
+  { href: "#about", label: "About" },
+  { href: "#products", label: "Products" },
+  { href: "#facility", label: "Facility" },
+  { href: "#contact", label: "Contact" },
+];
+
+function Nav() {
+  const [open, setOpen] = useState(false);
+  return (
+    <nav className={`nav${open ? " open" : ""}`}>
+      <div className="wrap nav-in">
+        <a href="#top" className="mark" onClick={() => setOpen(false)}>
+          <Logo size={34} mono />
+          <span className="mark-name">
+            <b>Super Plastech</b>
+            <span>Industries</span>
+          </span>
+        </a>
+        <div className="nav-links">
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </div>
+        <div className="nav-right">
+          <a href="#contact" className="btn btn-light btn-sm">
+            Get a quote
+          </a>
+          <button className="burger" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+            <i />
+            <i />
+          </button>
+        </div>
+      </div>
+      <div className="nav-sheet">
+        {LINKS.map((l) => (
+          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+/* ───────────────────────── Introduction ───────────────────────── */
+
+const INTRO =
+  "Super Plastech Industries is a Kalol‑based manufacturer of heavy-duty injection-moulded tubs and recycled PA6 polyamide granules. Everything is made on our own floor, built to take a beating and keep its shine.";
+
+function Intro() {
+  const words = INTRO.split(" ");
+  const spans = useRef<(HTMLSpanElement | null)[]>([]);
+  const ref = useViewportProgress<HTMLDivElement>((p) => {
+    const lit = clamp((p - 0.22) / 0.3) * words.length;
+    for (let i = 0; i < words.length; i++) {
+      const s = spans.current[i];
+      if (s) s.style.opacity = String(prefersReducedMotion() ? 1 : 0.16 + 0.84 * smooth(clamp(lit - i + 1)));
+    }
+  });
+  const [r1, v1] = useCountUp(6);
+  const [r2, v2] = useCountUp(10);
+  const [r3, v3] = useCountUp(450);
+
+  return (
+    <section className="section intro" id="about">
+      <div className="wrap">
+        <div className="intro-grid">
+          <span className="eyebrow">About us</span>
+          <div ref={ref}>
+            <p className="intro-text">
+              {words.map((w, i) => (
+                <span
+                  key={i}
+                  ref={(el) => {
+                    spans.current[i] = el;
+                  }}
+                >
+                  {w}{" "}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+
+        <div className="facts-head" data-reveal>
+          <span className="eyebrow">At a glance</span>
+          <p>What we make and how we make it, in three numbers.</p>
+        </div>
+        <div className="facts">
+          <div className="fact" data-reveal>
+            <div className="fact-num">
+              <span ref={r1}>{v1}</span>
+              <small>sizes</small>
+            </div>
+            <b>Tub sizes, 14″ to 24″</b>
+            <p>From a compact tub for the home to a large one for heavy worksite use.</p>
+          </div>
+          <div className="fact" data-reveal style={{ transitionDelay: ".08s" }}>
+            <div className="fact-num">
+              <span ref={r2}>{v2}</span>
+              <small>colourways</small>
+            </div>
+            <b>Colours to choose from</b>
+            <p>Six solid colours and four dual-tone blends, all in the same glossy finish.</p>
+          </div>
+          <div className="fact" data-reveal style={{ transitionDelay: ".16s" }}>
+            <div className="fact-num">
+              <span ref={r3}>{v3}</span>
+              <small>tonnes</small>
+            </div>
+            <b>Moulding machine capacity</b>
+            <p>Our Milacron Hydron Servo 450 injection-moulding machine gives every product the same precision.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Products ───────────────────────── */
+
+function ProductsIntro() {
+  return (
+    <section className="section products-head" id="products">
+      <div className="wrap">
+        <div className="head-split">
+          <div>
+            <span className="eyebrow">Products</span>
+            <h2>Two product lines, made in-house.</h2>
+          </div>
+          <p className="lead">
+            Pick a line to see every colour we make. Scroll or swipe through them one at a time.
+          </p>
+        </div>
+
+        <div className="line-grid">
+          <a href="#tubs" className="line-card" data-reveal>
+            <div className="line-top">
+              <span className="num">01</span>
+              <span className="tag">Tubs &amp; basins</span>
+            </div>
+            <div className="line-art">
+              <img src="/img/yellow.webp" alt="" loading="lazy" />
+            </div>
+            <div className="line-bottom">
+              <div>
+                <h3>Super Strength tubs</h3>
+                <p>Impact-resistant, glossy and stackable. Six sizes, ten colourways.</p>
+              </div>
+              <span className="go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 5v14M6 13l6 6 6-6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="#pa6" className="line-card" data-reveal style={{ transitionDelay: ".1s" }}>
+            <div className="line-top">
+              <span className="num">02</span>
+              <span className="tag">Granules</span>
+            </div>
+            <div className="line-art art-pellets">
+              <PelletJar color="#2457dd" ink="dark" auto />
+            </div>
+            <div className="line-bottom">
+              <div>
+                <h3>Recycled PA6 polyamide</h3>
+                <p>Reprocessed Nylon 6 granules, available in a range of colours.</p>
+              </div>
+              <span className="go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 5v14M6 13l6 6 6-6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Sizes() {
+  return (
+    <section className="section sizes">
+      <div className="wrap">
+        <div className="head-split">
+          <div>
+            <span className="eyebrow">Sizes</span>
+            <h2>Six sizes, 14″ to 24″.</h2>
+          </div>
+          <p className="lead">From a compact 14″ tub for the home to a 24″ for heavy worksite use.</p>
+        </div>
+        <div className="size-scroll">
+        <div className="size-row">
+          {SIZES.map((s, i) => (
+            <img
+              key={s.inch}
+              className="size-img"
+              data-reveal
+              src={`/img/${s.img}.webp`}
+              alt={`${s.inch} inch ${s.label} tub`}
+              loading="lazy"
+              style={{ flex: `${s.inch} 1 0`, transitionDelay: `${i * 0.08}s` }}
+            />
+          ))}
+        </div>
+        <div className="size-labels" aria-hidden="true">
+          {SIZES.map((s) => (
+            <span key={s.inch} style={{ flex: `${s.inch} 1 0` }}>
+              {s.inch}″
+            </span>
+          ))}
+        </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pa6Notes() {
+  const items = [
+    { t: "Recycled content", d: "Reclaimed polyamide 6 (Nylon 6), reprocessed into uniform granules." },
+    { t: "Made in-house", d: "Produced at our Kalol plant, alongside our finished tubs." },
+    { t: "Colours to order", d: "The standard colours shown here, with custom colours on request." },
+  ];
+  return (
+    <section className="section pa6-notes">
+      <div className="wrap">
+        <div className="notes-grid">
+          {items.map((n, i) => (
+            <div key={n.t} className="note" data-reveal style={{ transitionDelay: `${i * 0.08}s` }}>
+              <span className="note-n">0{i + 1}</span>
+              <h3>{n.t}</h3>
+              <p>{n.d}</p>
+            </div>
+          ))}
+        </div>
+        <div className="notes-cta" data-reveal>
+          <p>Need samples, specifications or bulk pricing for PA6 granules?</p>
+          <a href="#contact" className="btn btn-dark">
+            Enquire about PA6
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Facility ───────────────────────── */
+
+const CALLOUTS = [
+  { label: "Hopper", x: 81, y: 12, side: "l" },
+  { label: "Clamping unit", x: 33, y: 50, side: "r" },
+  { label: "Control panel", x: 54, y: 40, side: "b" },
+  { label: "Injection unit", x: 74, y: 44, side: "r" },
+];
+
+function Facility() {
+  const ref = useViewportProgress<HTMLDivElement>((p, el) => {
+    const t = prefersReducedMotion() ? 1 : smooth(clamp((p - 0.18) / 0.3));
+    el.style.opacity = String(0.15 + 0.85 * t);
+    el.style.transform = `translate3d(${((1 - t) * 90).toFixed(1)}px, 0, 0)`;
+  });
+  return (
+    <section className="section facility" id="facility">
+      <div className="wrap">
+        <div className="head-split">
+          <div>
+            <span className="eyebrow on-dark">Facility</span>
+            <h2>Made on our own floor in Kalol.</h2>
+          </div>
+          <p className="lead on-dark">
+            Our line runs on a Milacron Hydron Servo 450. Servo-driven for consistent shots, tight
+            tolerances and clean finishes on every cycle.
+          </p>
+        </div>
+
+        <div className="machine" ref={ref}>
+          <div className="machine-stage">
+            <img src="/img/machine.webp" alt="Milacron Hydron Servo 450 injection moulding machine" loading="lazy" />
+            {CALLOUTS.map((c, i) => (
+              <span
+                key={c.label}
+                className={`pin pin-${c.side}`}
+                style={{ left: `${c.x}%`, top: `${c.y}%`, animationDelay: `${i * 0.4}s` }}
+              >
+                <i />
+                <em>{c.label}</em>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <Process />
+
+        <div className="plant-line" data-reveal>
+          <span className="live">
+            <i /> Plant live
+          </span>
+          <span>Plot No. 59, GIDC Industrial Estate, Highway Road, Kalol – 382725, Gandhinagar, Gujarat</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Contact ───────────────────────── */
+
+function Icon({ name }: { name: "mail" | "pin" | "doc" | "phone" }) {
   const p = {
     phone: "M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11 11 0 003.4.55 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.55 3.4 1 1 0 01-.24 1l-2.2 2.4z",
     mail: "M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm0 2v.5l8 5 8-5V7l-8 5-8-5z",
@@ -11,291 +334,157 @@ function Icon({ name }: { name: "phone" | "mail" | "pin" | "doc" }) {
     doc: "M6 2h8l4 4v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm7 1.5V7h3.5L13 3.5z",
   }[name];
   return (
-    <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d={p} />
     </svg>
   );
 }
 
+function Contact() {
+  return (
+    <section className="section contact" id="contact">
+      <div className="wrap">
+        <div className="head-split">
+          <div>
+            <span className="eyebrow">Contact</span>
+            <h2>Talk to our team.</h2>
+          </div>
+          <p className="lead">
+            Bulk enquiries, custom colours and trade pricing. We ship tubs and PA6 granules across India.
+          </p>
+        </div>
+
+        <div className="contact-grid">
+          <div className="contact-card" data-reveal>
+            <div className="people">
+              {[PHONE_1, PHONE_2].map((p) => (
+                <a key={p.tel} href={`tel:${p.tel}`} className="person">
+                  <span className="ico">
+                    <Icon name="phone" />
+                  </span>
+                  <span>
+                    <small>Sales</small>
+                    <b>{p.name}</b>
+                    <em>{p.show}</em>
+                  </span>
+                </a>
+              ))}
+            </div>
+            <a className="crow" href={`mailto:${EMAIL}`}>
+              <span className="ico">
+                <Icon name="mail" />
+              </span>
+              <span>
+                <small>Email</small>
+                <b>{EMAIL}</b>
+              </span>
+            </a>
+            <div className="crow">
+              <span className="ico">
+                <Icon name="pin" />
+              </span>
+              <span>
+                <small>Factory</small>
+                <b>Plot No. 59, GIDC Industrial Estate, Highway Road, Kalol – 382725, Dist. Gandhinagar, Gujarat, India</b>
+              </span>
+            </div>
+            <div className="crow">
+              <span className="ico">
+                <Icon name="doc" />
+              </span>
+              <span>
+                <small>GSTIN</small>
+                <b>24AEYPC8763J1ZU</b>
+              </span>
+            </div>
+          </div>
+
+          <div className="map-card" data-reveal style={{ transitionDelay: ".1s" }}>
+            <iframe
+              title="Super Plastech Industries, Kalol GIDC"
+              src="https://www.google.com/maps?q=GIDC+Industrial+Estate+Kalol+Gandhinagar+Gujarat&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Footer ───────────────────────── */
+
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="wrap">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <a href="#top" className="mark">
+              <Logo size={38} mono />
+              <span className="mark-name">
+                <b>Super Plastech</b>
+                <span>Industries</span>
+              </span>
+            </a>
+            <p>Heavy-duty tubs and recycled PA6 polyamide granules. Made in Kalol, Gujarat.</p>
+          </div>
+          <div className="footer-cols">
+            <div>
+              <h4>Explore</h4>
+              {LINKS.map((l) => (
+                <a key={l.href} href={l.href}>
+                  {l.label}
+                </a>
+              ))}
+            </div>
+            <div>
+              <h4>Reach us</h4>
+              <a href={`tel:${PHONE_1.tel}`}>{PHONE_1.show}</a>
+              <a href={`tel:${PHONE_2.tel}`}>{PHONE_2.show}</a>
+              <a href={`mailto:${EMAIL}`}>Email us</a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} Super Plastech Industries. All rights reserved.</span>
+          <span>Plot 59, GIDC Kalol · Gujarat · India</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ───────────────────────── App ───────────────────────── */
+
 export default function App() {
+  useRevealOnScroll();
   return (
     <>
-      <nav className="nav">
-        <div className="wrap">
-          <a href="#top" className="mark">
-            <Logo size={38} />
-            <span className="mark-name">
-              <b>SUPER PLASTECH</b>
-              <span>INDUSTRIES</span>
-            </span>
-          </a>
-          <div className="nav-links">
-            <a href="#products">Products</a>
-            <a href="#plant">Our Plant</a>
-            <a href="#contact">Contact</a>
-            <a href="#contact" className="nav-cta">Get a Quote</a>
-          </div>
-        </div>
-      </nav>
-
-      <header className="hero" id="top">
-        <div className="wrap">
-          <div>
-            <span className="eyebrow">Made in India · Kalol, Gujarat</span>
-            <h1 className="display">
-              <span className="g">Super</span> Plastech
-              <span className="r">Industries</span>
-            </h1>
-            <p className="hero-tagline">Super Strength. Unbreakable plastics.</p>
-            <p className="hero-lead">
-              Precision injection-moulded ghamela and utility tubs, built from virgin
-              plastic to take a beating and keep their shine. Household, agricultural
-              and Nylon&nbsp;6 granules — manufactured to a heavy-duty standard.
-            </p>
-            <div className="hero-tags">
-              <span className="chip filled">Unbreakable</span>
-              <span className="chip">Heavy Duty</span>
-              <span className="chip">Long Lasting</span>
-              <span className="chip">Precision Moulded</span>
-            </div>
-            <div className="hero-actions">
-              <a href="#products" className="btn btn-red">See the range</a>
-              <a href="#contact" className="btn btn-ghost">Talk to sales</a>
-            </div>
-            <div className="rail" style={{ marginTop: 34, maxWidth: 420 }}>
-              {COLORS.map((c) => (
-                <span key={c} style={{ background: c }} />
-              ))}
-            </div>
-          </div>
-
-          <div className="hero-visual">
-            <div className="hero-photo">
-              <img src="/img/live.jpg" alt="Super Plastech tubs in the full colour range" />
-            </div>
-            <div className="hero-stat">
-              <b>Quality Innovation Trust</b>
-              <span></span>
-            </div>
-            <div className="hero-badge">
-              <img src="/img/badge.jpg" alt="Super Strength emblem" />
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <section className="section" id="products">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="eyebrow">What we make</span>
-            <h2 className="display">Our Products</h2>
-            <p>
-              One product family, engineered properly. Every tub is moulded from virgin
-              plastic with a glossy premium finish and smooth, safe edges — sized for the
-              worksite and the home alike.
-            </p>
-          </div>
-
-          <div className="prod-grid">
-            <article className="card feature-lg span-7">
-              <div className="card-photo">
-                <img src="/img/sizes.jpg" alt="Full 14 to 24 inch size range in six colours" />
-              </div>
-              <div className="card-body">
-                <span className="card-tag">Core range · Ghamela / Tubs</span>
-                <h3>Super Strength Tubs</h3>
-                <p>
-                  The everyday workhorse. Six sizes from 14&quot; to 24&quot;, in six
-                  solid colours — impact-resistant, stackable and reliable batch after batch.
-                </p>
-                <div className="card-feats">
-                  <span>Virgin plastic</span>
-                  <span>Impact resistant</span>
-                  <span>Glossy finish</span>
-                  <span>Stackable</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="card feature-sm span-5">
-              <div className="card-photo">
-                <img src="/img/creative.jpg" alt="Super Creative dual-tone aesthetic tubs" />
-              </div>
-              <div className="card-body">
-                <span className="card-tag">Premium · Super Creative</span>
-                <h3>Dual-Tone Tubs</h3>
-                <p>
-                  A premium dual-tone line for modern homes — baby bath, laundry, storage
-                  and cleaning, with an elegant colour blend and glossy shine.
-                </p>
-                <div className="card-feats">
-                  <span>White + Blue</span>
-                  <span>Grey + Pink</span>
-                  <span>White + Teal</span>
-                  <span>Cream + Brown</span>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div className="sizes">
-            <div>
-              <h3>Available in six sizes</h3>
-              <p>14 inch to 24 inch — a size for every job.</p>
-            </div>
-            <div className="size-pills">
-              {SIZES.map((s) => (
-                <span key={s}>{s}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section band-green" id="plant">
-        <div className="wrap">
-          <div className="plant-grid">
-            <div className="plant-photo">
-              <img src="/img/machine.jpg" alt="Milacron Hydron Servo 450 injection moulding machine" />
-            </div>
-            <div>
-              <span className="eyebrow">Inside the plant</span>
-              <h2 className="display" style={{ color: "#fff", fontSize: "clamp(32px,4.4vw,52px)" }}>
-                Our Plant
-              </h2>
-              <p style={{ color: "#b7cfc2", fontSize: 17, marginTop: 14 }}>
-                Our line runs on a Milacron Hydron Servo 450 — servo-driven for consistent
-                shots, tight tolerances and clean finishes on every cycle. Quality is
-                controlled from granule to finished tub, on our own floor.
-              </p>
-              <ul className="plant-list">
-                <li>
-                  <b>450T</b>
-                  <div>
-                    <span>Milacron Hydron Servo 450</span>
-                    <small>Servo-hydraulic injection moulding for repeatable precision.</small>
-                  </div>
-                </li>
-                <li>
-                  <b>N6</b>
-                  <div>
-                    <span>Nylon 6 granules, in-house</span>
-                    <small>We manufacture our own granules alongside finished products.</small>
-                  </div>
-                </li>
-                <li>
-                  <b>QC</b>
-                  <div>
-                    <span>Batch-consistent output</span>
-                    <small>Precision moulding and reliable quality, order after order.</small>
-                  </div>
-                </li>
-              </ul>
-              <span className="machine-tag"><i /> Plant live at Plot 59, GIDC Kalol</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="contact">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="eyebrow">Get in touch</span>
-            <h2 className="display">Contact Us</h2>
-            <p>
-              Bulk enquiries, custom colours and trade pricing — reach the team directly.
-              We ship household, agricultural and Nylon&nbsp;6 granule orders across India.
-            </p>
-          </div>
-
-          <div className="contact-grid">
-            <div className="contact-card">
-              <div className="contact-people">
-                <div className="person">
-                  <small>Sales</small>
-                  <b>Ankit Desai</b>
-                  <a href="tel:+917043836001">+91 70438 36001</a>
-                </div>
-                <div className="person">
-                  <small>Sales</small>
-                  <b>Harsh Patel</b>
-                  <a href="tel:+919586550300">+91 95865 50300</a>
-                </div>
-              </div>
-
-              <a className="contact-row" href="mailto:superplastech6001@gmail.com">
-                <div className="ico"><Icon name="mail" /></div>
-                <div>
-                  <small>Email</small>
-                  <span>superplastech6001@gmail.com</span>
-                </div>
-              </a>
-              <div className="contact-row">
-                <div className="ico"><Icon name="pin" /></div>
-                <div>
-                  <small>Factory</small>
-                  <span>Plot No. 59, GIDC Industrial Estate, Highway Road, Kalol &ndash; 382725, Dist. Gandhinagar, Gujarat, India</span>
-                </div>
-              </div>
-              <div className="contact-row">
-                <div className="ico"><Icon name="doc" /></div>
-                <div>
-                  <small>GSTIN</small>
-                  <span>24AEYPC8763J1ZU</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="map-card">
-              <iframe
-                title="Super Plastech Industries — Kalol GIDC"
-                src="https://www.google.com/maps?q=GIDC+Industrial+Estate+Kalol+Gandhinagar+Gujarat&output=embed"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="footer" id="footer">
-        <div className="wrap">
-          <div className="footer-top">
-            <div>
-              <a href="#top" className="mark" style={{ color: "#fff" }}>
-                <Logo size={40} mono />
-                <span className="mark-name">
-                  <b style={{ color: "#fff" }}>SUPER PLASTECH</b>
-                  <span style={{ color: "#8a939b" }}>INDUSTRIES</span>
-                </span>
-              </a>
-              <p>
-                Manufacturers of plastic household &amp; agricultural products and Nylon 6
-                granules. Heavy-duty, long-lasting, made in India.
-              </p>
-            </div>
-            <div className="footer-links">
-              <div>
-                <h5>Explore</h5>
-                <a href="#products">Products</a>
-                <a href="#plant">Our Plant</a>
-                <a href="#contact">Contact</a>
-              </div>
-              <div>
-                <h5>Reach us</h5>
-                <a href="tel:+917043836001">+91 70438 36001</a>
-                <a href="tel:+919586550300">+91 95865 50300</a>
-                <a href="mailto:superplastech6001@gmail.com">Email</a>
-              </div>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <span>&copy; {new Date().getFullYear()} Super Plastech Industries. All rights reserved.</span>
-            <span>Plot 59, GIDC Kalol · Gujarat · India</span>
-          </div>
-        </div>
-        <div className="tagline-strip">Super Strength · Unbreakable Plastic Products</div>
-      </footer>
+      <Nav />
+      <main>
+        <Hero />
+        <Intro />
+        <ProductsIntro />
+        <ColourStage
+          id="tubs"
+          kicker="Tubs & basins"
+          slides={TUB_SLIDES}
+          alt={(s) => `Super Plastech ${s.name} tub`}
+        />
+        <Sizes />
+        <ColourStage
+          id="pa6"
+          kicker="Recycled PA6"
+          slides={PA6_SLIDES}
+          alt={(s) => `${s.name} recycled PA6 granules`}
+        />
+        <Pa6Notes />
+        <Facility />
+        <Contact />
+      </main>
+      <Footer />
     </>
   );
 }
