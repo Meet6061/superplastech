@@ -22,8 +22,6 @@ type Props = {
   note?: string;
 };
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 /**
  * A pinned, scroll-driven card stack. One card is in front; the rest peek out behind it.
  * Scrolling deals the front card off to the side and brings the next one forward.
@@ -182,7 +180,6 @@ export default function UseStack({ id, tone, eyebrow, title, lead, items, note }
                     caps.current[i] = el;
                   }}
                 >
-                  <span className="ukc-num">{pad(i + 1)}</span>
                   <h3>{it.title}</h3>
                   <p>{it.text}</p>
                 </div>
@@ -214,9 +211,6 @@ export default function UseStack({ id, tone, eyebrow, title, lead, items, note }
                     <path d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-                <span className="ukc-count" aria-live="polite">
-                  <b>{pad(active + 1)}</b> / {pad(N)}
-                </span>
               </div>
               {note ? <p className="ukc-note">{note}</p> : null}
               <span className={`ukc-hint${!touched && active === 0 ? " on" : ""}`} aria-hidden="true">

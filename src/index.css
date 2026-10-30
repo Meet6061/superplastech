@@ -168,8 +168,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 }
 .line-card.in { transition: opacity 0.9s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
 .line-card.in:hover { transform: translateY(-6px); box-shadow: 0 34px 60px -34px rgba(12, 17, 14, 0.4); }
-.line-top { display: flex; align-items: center; justify-content: space-between; }
-.num { font-family: var(--f-display); font-weight: 600; font-size: 18px; color: var(--muted); letter-spacing: -0.01em; }
+.line-top { display: flex; align-items: center; justify-content: flex-end; }
 .tag { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); }
 .line-art { flex: 1; display: grid; place-items: center; padding: 28px 0; }
 .line-art img { width: min(84%, 460px); filter: drop-shadow(0 26px 24px rgba(12, 17, 14, 0.22)); transition: transform 0.7s var(--ease); }
@@ -213,9 +212,6 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 }
 .stage-group { display: block; margin-top: 14px; font-size: 15.5px; font-weight: 500; opacity: 0.85; animation: fadeUp 0.6s var(--ease) both; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 0.85; transform: none; } }
-.stage-count { display: flex; align-items: baseline; gap: 8px; font-variant-numeric: tabular-nums; }
-.stage-count b { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 3.4vw, 46px); letter-spacing: -0.04em; line-height: 1; }
-.stage-count span { font-size: 15px; font-weight: 500; opacity: 0.6; }
 
 .stage-bottom { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: clamp(22px, 3vw, 38px); }
 .stage-bottom-in { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
@@ -300,7 +296,6 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 .ukc-text .lead { margin-top: 16px; max-width: 40ch; }
 .ukc-caps { position: relative; width: 100%; min-height: clamp(150px, 17vw, 190px); margin-top: clamp(24px, 3.2vw, 44px); padding-top: 22px; border-top: 1.5px solid color-mix(in srgb, var(--fg) 30%, transparent); }
 .ukc-cap { position: absolute; left: 0; right: 0; top: 22px; will-change: transform, opacity; }
-.ukc-num { font-family: var(--f-display); font-weight: 600; font-size: 15px; opacity: 0.55; }
 .ukc-cap h3 { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.04; margin-top: 8px; letter-spacing: -0.032em; }
 .ukc-cap p { margin-top: 12px; font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 40ch; }
 .ukc-dark .ukc-cap p { color: var(--muted-d); }
@@ -308,8 +303,6 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 .ukc-dots { display: flex; align-items: center; gap: 8px; }
 .ukc-dot { width: 9px; height: 9px; border-radius: 99px; background: color-mix(in srgb, var(--fg) 28%, transparent); transition: width 0.35s var(--ease), background 0.3s; }
 .ukc-dot.on { width: 26px; background: var(--fg); }
-.ukc-count { margin-left: 6px; font-size: 14px; font-variant-numeric: tabular-nums; opacity: 0.7; }
-.ukc-count b { font-family: var(--f-display); font-size: 18px; opacity: 1; }
 .ukc-note { font-size: 13.5px; color: var(--muted-d); max-width: 46ch; }
 .ukc-hint { font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.5s; color: var(--muted); }
 .ukc-dark .ukc-hint { color: var(--muted-d); }
@@ -333,7 +326,6 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 .pa6-notes { background: var(--paper); padding-top: clamp(64px, 8vw, 110px); }
 .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 44px); }
 .note { border-top: 1.5px solid var(--ink); padding-top: 22px; }
-.note-n { font-family: var(--f-display); font-weight: 600; font-size: 15px; color: var(--muted); }
 .note h3 { font-size: clamp(22px, 2.2vw, 28px); margin: 14px 0 10px; line-height: 1.1; }
 .note p { color: var(--muted); font-size: 15.5px; max-width: 34ch; }
 .notes-cta {
@@ -361,15 +353,12 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 @keyframes ping { 0% { transform: scale(0.8); opacity: 1; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
 
 
-.plant-line { margin-top: clamp(48px, 6vw, 80px); padding-top: 24px; border-top: 1px solid var(--line-d); display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; color: var(--muted-d); font-size: 14.5px; }
-.live { display: inline-flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; padding: 7px 14px; border: 1px solid var(--line-d); border-radius: 999px; }
-.live i { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.22); }
 
 /* ───────────── Contact ───────────── */
 .contact { background: var(--paper); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); align-items: stretch; }
 .contact-card { background: #fff; border: 1px solid var(--line); border-radius: 30px; padding: clamp(22px, 3vw, 40px); }
-.people { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.people { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 8px; }
 .person { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 20px; background: var(--paper); transition: background 0.25s; min-width: 0; }
 .person:hover { background: var(--paper-2); }
 .ico { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; }
@@ -381,6 +370,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
 .crow b { display: block; font-size: 16px; line-height: 1.45; font-weight: 600; margin-top: 2px; word-break: break-word; }
 .map-card { position: relative; min-height: 420px; border-radius: 30px; overflow: hidden; border: 1px solid var(--line); background: var(--paper-2); }
 .map-card iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.map-open { position: absolute; left: 16px; bottom: 16px; z-index: 2; box-shadow: 0 8px 24px rgba(12, 17, 14, 0.28); }
 
 /* ───────────── Footer ───────────── */
 .footer { background: var(--ink); color: #c9d0cc; padding-block: clamp(56px, 7vw, 88px) 32px; }
@@ -428,7 +418,6 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
   .hero h1 { max-width: 13ch; }
   .scroll-cue { margin-top: 36px; }
   .fact-num { font-size: 76px; }
-  .people { grid-template-columns: 1fr; }
   .contact-card { padding: 20px; }
   .crow { gap: 12px; }
   .crow b { font-size: 15px; }
@@ -446,11 +435,9 @@ h2 { font-size: clamp(36px, 5vw, 68px); line-height: 1.02; margin-top: 18px; tex
   .arrow { display: none; }
   .swatches { gap: 7px; }
   .sw { width: 24px; height: 24px; }
-  .stage-count { align-self: flex-start; }
   .stage-top-in { align-items: flex-start; }
   .pin em { display: none; }
   .pin i { width: 10px; height: 10px; }
-  .plant-line { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 420px) {
   .stage-group { font-size: 14px; max-width: 24ch; }

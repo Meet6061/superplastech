@@ -243,7 +243,7 @@ export default function TubSizes() {
       ? { h: "Six sizes, one stack.", p: "Each tub nests inside the next. Scroll to unpack them." }
       : beat >= N
         ? { h: "Six sizes. Six colours.", p: "From a compact 14″ for the home to a 24″ for heavy worksite use." }
-        : { h: `${SIZES[beat].inch}″ ${SIZES[beat].label}`, p: `Size ${beat + 1} of ${N}` };
+        : { h: `${SIZES[beat].inch}″ ${SIZES[beat].label}`, p: "" };
 
   return (
     <section
@@ -283,7 +283,7 @@ export default function TubSizes() {
             <span className="tsz-kicker">Tubs &amp; basins · Sizes</span>
             <div className="tsz-cap" key={beat}>
               <h2>{head.h}</h2>
-              <p>{head.p}</p>
+              {head.p ? <p>{head.p}</p> : null}
             </div>
           </div>
         </div>

@@ -19,8 +19,6 @@ const swatchBg = (s: Slide) =>
     ? `linear-gradient(180deg, ${s.swatch[0]} 0 50%, ${s.swatch[1]} 50% 100%)`
     : s.swatch[0];
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 /**
  * A pinned, scroll-driven "one colour at a time" stage.
  * Vertical scroll, horizontal swipe, arrows, swatches and ← → keys all
@@ -227,10 +225,6 @@ export default function ColourStage({ id, kicker, slides, alt }: Props) {
               <span className="stage-group" key={cur.group}>
                 {cur.group}
               </span>
-            </div>
-            <div className="stage-count" aria-live="polite">
-              <b>{pad(active + 1)}</b>
-              <span>/ {pad(N)}</span>
             </div>
           </div>
         </div>

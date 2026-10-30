@@ -8,8 +8,8 @@ import { Pa6Uses, TubUses } from "./UseCases";
 import { PA6_SLIDES, TUB_SLIDES } from "./data";
 import { clamp, prefersReducedMotion, smooth, useCountUp, useRevealOnScroll, useViewportProgress } from "./hooks";
 
-const PHONE_1 = { name: "Ankit Desai", tel: "+917043836001", show: "+91 70438 36001" };
-const PHONE_2 = { name: "Harsh Patel", tel: "+919586550300", show: "+91 95865 50300" };
+const PHONE = { names: "Ankit Desai & Harsh Patel", tel: "+918320466001", show: "+91 83204 66001" };
+const MAP_LINK = "https://maps.app.goo.gl/JMbVsFW5GZBRWXWTA?g_st=iw";
 const EMAIL = "superplastech6001@gmail.com";
 
 /* ───────────────────────── Nav ───────────────────────── */
@@ -155,7 +155,6 @@ function ProductsIntro() {
         <div className="line-grid">
           <a href="#tub-sizes" className="line-card" data-reveal>
             <div className="line-top">
-              <span className="num">01</span>
               <span className="tag">Tubs &amp; basins</span>
             </div>
             <div className="line-art">
@@ -176,7 +175,6 @@ function ProductsIntro() {
 
           <a href="#pa6" className="line-card" data-reveal style={{ transitionDelay: ".1s" }}>
             <div className="line-top">
-              <span className="num">02</span>
               <span className="tag">Granules</span>
             </div>
             <div className="line-art art-pellets">
@@ -212,7 +210,6 @@ function Pa6Notes() {
         <div className="notes-grid">
           {items.map((n, i) => (
             <div key={n.t} className="note" data-reveal style={{ transitionDelay: `${i * 0.08}s` }}>
-              <span className="note-n">0{i + 1}</span>
               <h3>{n.t}</h3>
               <p>{n.d}</p>
             </div>
@@ -273,13 +270,6 @@ function Facility() {
             ))}
           </div>
         </div>
-
-        <div className="plant-line" data-reveal>
-          <span className="live">
-            <i /> Plant live
-          </span>
-          <span>Plot No. 59, GIDC Industrial Estate, Highway Road, Kalol – 382725, Gandhinagar, Gujarat</span>
-        </div>
       </div>
     </section>
   );
@@ -318,18 +308,16 @@ function Contact() {
         <div className="contact-grid">
           <div className="contact-card" data-reveal>
             <div className="people">
-              {[PHONE_1, PHONE_2].map((p) => (
-                <a key={p.tel} href={`tel:${p.tel}`} className="person">
-                  <span className="ico">
-                    <Icon name="phone" />
-                  </span>
-                  <span>
-                    <small>Sales</small>
-                    <b>{p.name}</b>
-                    <em>{p.show}</em>
-                  </span>
-                </a>
-              ))}
+              <a href={`tel:${PHONE.tel}`} className="person">
+                <span className="ico">
+                  <Icon name="phone" />
+                </span>
+                <span>
+                  <small>Sales</small>
+                  <b>{PHONE.names}</b>
+                  <em>{PHONE.show}</em>
+                </span>
+              </a>
             </div>
             <a className="crow" href={`mailto:${EMAIL}`}>
               <span className="ico">
@@ -367,6 +355,9 @@ function Contact() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+            <a className="btn btn-dark btn-sm map-open" href={MAP_LINK} target="_blank" rel="noopener noreferrer">
+              Open in Google Maps
+            </a>
           </div>
         </div>
       </div>
@@ -402,8 +393,7 @@ function Footer() {
             </div>
             <div>
               <h4>Reach us</h4>
-              <a href={`tel:${PHONE_1.tel}`}>{PHONE_1.show}</a>
-              <a href={`tel:${PHONE_2.tel}`}>{PHONE_2.show}</a>
+              <a href={`tel:${PHONE.tel}`}>{PHONE.show}</a>
               <a href={`mailto:${EMAIL}`}>Email us</a>
             </div>
           </div>
