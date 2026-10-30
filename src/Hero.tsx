@@ -236,15 +236,15 @@ export default function Hero() {
 
         <p className="hero-tag">
           <i />
-          Recycled PA6 granules, moulded in Kalol
+          Recycled PA6 granules · Made in India
         </p>
 
         <div className="hero-copy">
-          <span className="eyebrow on-dark">Kalol, Gujarat · Made in India</span>
-          <h1>Unbreakable plastics, made in Kalol.</h1>
+          <span className="eyebrow on-dark">Made in India</span>
+          <h1>Unbreakable plastics, made in India.</h1>
           <p className="lead on-dark">
-            We make heavy-duty plastic tubs and recycled PA6 (Nylon 6) polyamide granules. Everything is
-            produced on our own floor in Gujarat, India.
+            Two separate lines from one manufacturer: heavy-duty plastic tubs for everyday work, and recycled
+            PA6 (Nylon 6) polyamide granules for industry.
           </p>
           <div className="hero-actions">
             <a href="#products" className="btn btn-light">

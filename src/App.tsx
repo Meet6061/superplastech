@@ -2,9 +2,10 @@ import { useRef, useState } from "react";
 import Logo from "./Logo";
 import ColourStage from "./ColourStage";
 import Hero from "./Hero";
-import Process from "./Process";
 import PelletJar from "./PelletJar";
-import { PA6_SLIDES, SIZES, TUB_SLIDES } from "./data";
+import TubSizes from "./TubSizes";
+import { Pa6Uses, TubUses } from "./UseCases";
+import { PA6_SLIDES, TUB_SLIDES } from "./data";
 import { clamp, prefersReducedMotion, smooth, useCountUp, useRevealOnScroll, useViewportProgress } from "./hooks";
 
 const PHONE_1 = { name: "Ankit Desai", tel: "+917043836001", show: "+91 70438 36001" };
@@ -63,7 +64,7 @@ function Nav() {
 /* ───────────────────────── Introduction ───────────────────────── */
 
 const INTRO =
-  "Super Plastech Industries is a Kalol‑based manufacturer of heavy-duty injection-moulded tubs and recycled PA6 polyamide granules. Everything is made on our own floor, built to take a beating and keep its shine.";
+  "Super Plastech Industries makes heavy-duty injection-moulded tubs, and, as a separate line, recycled PA6 polyamide granules for industry. Both are made in India, built to take a beating and keep their shine.";
 
 function Intro() {
   const words = INTRO.split(" ");
@@ -127,7 +128,7 @@ function Intro() {
               <small>tonnes</small>
             </div>
             <b>Moulding machine capacity</b>
-            <p>Our Milacron Hydron Servo 450 injection-moulding machine gives every product the same precision.</p>
+            <p>Our Milacron Hydron Servo 450 injection-moulding machine gives every tub the same precision.</p>
           </div>
         </div>
       </div>
@@ -144,7 +145,7 @@ function ProductsIntro() {
         <div className="head-split">
           <div>
             <span className="eyebrow">Products</span>
-            <h2>Two product lines, made in-house.</h2>
+            <h2>Two separate product lines.</h2>
           </div>
           <p className="lead">
             Pick a line to see every colour we make. Scroll or swipe through them one at a time.
@@ -152,7 +153,7 @@ function ProductsIntro() {
         </div>
 
         <div className="line-grid">
-          <a href="#tubs" className="line-card" data-reveal>
+          <a href="#tub-sizes" className="line-card" data-reveal>
             <div className="line-top">
               <span className="num">01</span>
               <span className="tag">Tubs &amp; basins</span>
@@ -199,48 +200,10 @@ function ProductsIntro() {
   );
 }
 
-function Sizes() {
-  return (
-    <section className="section sizes">
-      <div className="wrap">
-        <div className="head-split">
-          <div>
-            <span className="eyebrow">Sizes</span>
-            <h2>Six sizes, 14″ to 24″.</h2>
-          </div>
-          <p className="lead">From a compact 14″ tub for the home to a 24″ for heavy worksite use.</p>
-        </div>
-        <div className="size-scroll">
-        <div className="size-row">
-          {SIZES.map((s, i) => (
-            <img
-              key={s.inch}
-              className="size-img"
-              data-reveal
-              src={`/img/${s.img}.webp`}
-              alt={`${s.inch} inch ${s.label} tub`}
-              loading="lazy"
-              style={{ flex: `${s.inch} 1 0`, transitionDelay: `${i * 0.08}s` }}
-            />
-          ))}
-        </div>
-        <div className="size-labels" aria-hidden="true">
-          {SIZES.map((s) => (
-            <span key={s.inch} style={{ flex: `${s.inch} 1 0` }}>
-              {s.inch}″
-            </span>
-          ))}
-        </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Pa6Notes() {
   const items = [
     { t: "Recycled content", d: "Reclaimed polyamide 6 (Nylon 6), reprocessed into uniform granules." },
-    { t: "Made in-house", d: "Produced at our Kalol plant, alongside our finished tubs." },
+    { t: "Made in India", d: "A line of its own, separate from our tubs, produced at our own plant." },
     { t: "Colours to order", d: "The standard colours shown here, with custom colours on request." },
   ];
   return (
@@ -287,7 +250,7 @@ function Facility() {
         <div className="head-split">
           <div>
             <span className="eyebrow on-dark">Facility</span>
-            <h2>Made on our own floor in Kalol.</h2>
+            <h2>Our tubs are made on our own floor.</h2>
           </div>
           <p className="lead on-dark">
             Our line runs on a Milacron Hydron Servo 450. Servo-driven for consistent shots, tight
@@ -310,8 +273,6 @@ function Facility() {
             ))}
           </div>
         </div>
-
-        <Process />
 
         <div className="plant-line" data-reveal>
           <span className="live">
@@ -428,7 +389,7 @@ function Footer() {
                 <span>Industries</span>
               </span>
             </a>
-            <p>Heavy-duty tubs and recycled PA6 polyamide granules. Made in Kalol, Gujarat.</p>
+            <p>Heavy-duty tubs and recycled PA6 polyamide granules. Made in India.</p>
           </div>
           <div className="footer-cols">
             <div>
@@ -467,19 +428,21 @@ export default function App() {
         <Hero />
         <Intro />
         <ProductsIntro />
+        <TubSizes />
         <ColourStage
           id="tubs"
           kicker="Tubs & basins"
           slides={TUB_SLIDES}
           alt={(s) => `Super Plastech ${s.name} tub`}
         />
-        <Sizes />
+        <TubUses />
         <ColourStage
           id="pa6"
           kicker="Recycled PA6"
           slides={PA6_SLIDES}
           alt={(s) => `${s.name} recycled PA6 granules`}
         />
+        <Pa6Uses />
         <Pa6Notes />
         <Facility />
         <Contact />
