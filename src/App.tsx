@@ -27,7 +27,7 @@ function Nav() {
     <nav className={`nav${open ? " open" : ""}`}>
       <div className="wrap nav-in">
         <a href="#top" className="mark" onClick={() => setOpen(false)}>
-          <Logo size={34} mono />
+          <Logo height={30} />
           <span className="mark-name">
             <b>Super Plastech</b>
             <span>Industries</span>
@@ -334,7 +334,7 @@ function Contact() {
               </span>
               <span>
                 <small>Factory</small>
-                <b>Plot No. 59, GIDC Industrial Estate, Highway Road, Kalol – 382725, Dist. Gandhinagar, Gujarat, India</b>
+                <b>Super Plastech Industries, Plot No. 59, G.I.D.C. Industrial Estate, Highway Road, GIDC Kalol – 382725, Dist. Gandhinagar, Gujarat, India</b>
               </span>
             </div>
             <div className="crow">
@@ -343,7 +343,7 @@ function Contact() {
               </span>
               <span>
                 <small>GSTIN</small>
-                <b>24AEYPC8763J1ZU</b>
+                <b>24AFSFS8141K1ZD</b>
               </span>
             </div>
           </div>
@@ -373,12 +373,8 @@ function Footer() {
       <div className="wrap">
         <div className="footer-top">
           <div className="footer-brand">
-            <a href="#top" className="mark">
-              <Logo size={38} mono />
-              <span className="mark-name">
-                <b>Super Plastech</b>
-                <span>Industries</span>
-              </span>
+            <a href="#top" className="mark" aria-label="Super Plastech Industries">
+              <Logo variant="lockup" height={52} />
             </a>
             <p>Heavy-duty tubs and recycled PA6 polyamide granules. Made in India.</p>
           </div>
@@ -400,7 +396,7 @@ function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Super Plastech Industries. All rights reserved.</span>
-          <span>Plot 59, GIDC Kalol · Gujarat · India</span>
+          <span>Plot No. 59, G.I.D.C. Kalol · Gujarat · India</span>
         </div>
       </div>
     </footer>
