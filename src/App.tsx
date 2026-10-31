@@ -56,6 +56,9 @@ function Nav() {
             {l.label}
           </a>
         ))}
+        <a href="#contact" className="sheet-cta" onClick={() => setOpen(false)}>
+          Get a quote
+        </a>
       </div>
     </nav>
   );
